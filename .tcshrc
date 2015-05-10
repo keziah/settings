@@ -1,0 +1,7 @@
+set path = ( /usr/class/cs140/`uname -m`/bin $path )
+set path = ( ~/.gem/ruby/1.9.1/bin $path )
+alias cs140 'cd cs/cs140/src'
+alias precmd "source ~/bin/gitprompt.csh"
+alias testing 'cd cs107'
+
+source ~/bin/git-completion.tcsh
