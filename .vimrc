@@ -1,0 +1,14 @@
+colorscheme desert
+set smartindent
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set tags=tags;
+set mouse=a
+:syntax on
+set cindent
+set autowrite
+set hlsearch
+set incsearch
+set textwidth=80
+set number
