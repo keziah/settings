@@ -1,4 +1,4 @@
-# settings
+## settings
 A copy of my bash/vim/git settings for sharing or for accessing on different computers. 
 
 A lot of these files I borrowed from other people, and they are a mix of settings from different computers I use (the remote Unix
