@@ -10,15 +10,24 @@ eval "$(scmpuff init -s)"
 # Record all bash history
 export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(history 1)" >> ~/.logs/bash-history-$(date "+%Y-%m-%d").log; fi'
 
+export CLEAN=true
 searchlogs () {
   searchterm=$@
   if [ -z $searchterm ]; then
-    echo "Usage: [NUM_LINES=int] searchlogs [searchterm]"
-    echo "Example: NUM_LINES=15 searchlogs aws sts"
+    echo "Usage: [N=int] [CLEAN=true] searchlogs [searchterm]"
+    echo "Example: N=15 searchlogs aws sts"
+    echo "Variables: "
+    echo "    N: how many lines to display"
+    echo "    CLEAN: Filter out path and time prefix"
     return
   fi
-  NUM_LINES=${NUM_LINES:-'10'}
-  grep -hrv 'logsearch' ~/.logs | ag -i "$searchterm" | sort | tail -n $NUM_LINES
+  N=${N:-'10'}
+  RES=$( grep -hrv 'logsearch' ~/.logs | ag -i "$searchterm" | sort | tail -n $NUM_LINES )
+  if [ $CLEAN == "true" ]; then
+    echo "$RES" | sed -u 's/^.*  [ 0-9]\{3,\}  //'
+  else
+    echo "$RES"
+  fi
 }
 
 # Format prompt
