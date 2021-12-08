@@ -1,13 +1,25 @@
 #!/bin/bash
 
-which scmpuff > /dev/null
+which brew > /dev/null
 if [ $? -neq 0 ]; then
-  brew install scmpuff
+  echo "Please install brew and put it in your path before running this script."
+  exit
 fi
+
+brew install cmake python go nodejs
+brew install scmpuff
+brew install reattach-to-user-namespace
+brew install z
+brew install telnet
+brew install tmux
+brew install vim
+
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 cp "bash/."* ~
 cp ".vimrc" ~ 
-cp ".tmux.conf" ~
-cp "tmux/.tmux"* ~/.tmux
+cp "tmux/.tmux" ~/.tmux
+cp "tmux/.tmux.conf" ~/.tmux.conf
 
+vim +PluginInstall +qall
 source ~/.bash_profile

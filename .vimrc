@@ -1,7 +1,4 @@
-
-" set the runtime path to include Vundle and initialize
-" Uncommment when Vulndle is installed
-# set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 
 colorscheme desert
 set smartindent
@@ -26,18 +23,18 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 autocmd BufEnter *.md exe 'noremap <F5> :! /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome %:p<CR>'
 
-# call vundle#begin()
-# " alternatively, pass a path where Vundle should install plugins
-# "call vundle#begin('~/some/path/here')
-#
-# " let Vundle manage Vundle, required
-# Plugin 'VundleVim/Vundle.vim'
-# Plugin 'zxqfl/tabnine-vim'
-# Bundle 'christoomey/vim-tmux-navigator'
-# Plugin 'JamshedVesuna/vim-markdown-preview'
-#
-# call vundle#end()
-# filetype plugin indent on    " required
-#
-# map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-# map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'zxqfl/tabnine-vim'
+Bundle 'christoomey/vim-tmux-navigator'
+Plugin 'JamshedVesuna/vim-markdown-preview'
+
+call vundle#end()
+filetype plugin indent on    " required
+
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
