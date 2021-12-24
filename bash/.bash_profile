@@ -13,11 +13,11 @@ export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:
 searchlogs () {
   searchterm=$@
   if [ -z $searchterm ]; then
-    echo "Usage: [NUM_LINES=int] searchlogs [searchterm]"
-    echo "Example: NUM_LINES=15 searchlogs aws sts"
+    echo "Usage: [N=int] searchlogs [searchterm]"
+    echo "Example: N=15 searchlogs aws sts"
     return
   fi
-  NUM_LINES=${NUM_LINES:-'10'}
+  NUM_LINES=${N:-'10'}
   grep -hrv 'logsearch' ~/.logs | ag -i "$searchterm" | sort | tail -n $NUM_LINES
 }
 
@@ -25,3 +25,15 @@ searchlogs () {
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 PS1="\[$Green\]\u:\[$Blue\]\[$Yellow\]\W\[\033[m\]\[$Purple\]\$(__git_ps1)\[$White\]\[$Color_Off\]\$ "
+
+# Installations
+. /opt/homebrew/etc/profile.d/z.sh
+export PATH="/usr/local/bin:$PATH"
+
+# Set brew as main path only if installed
+which brew > /dev/null
+if [ $? -eq 0 ]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+fi
+
+
