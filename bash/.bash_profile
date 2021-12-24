@@ -29,3 +29,11 @@ PS1="\[$Green\]\u:\[$Blue\]\[$Yellow\]\W\[\033[m\]\[$Purple\]\$(__git_ps1)\[$Whi
 # Installations
 . /opt/homebrew/etc/profile.d/z.sh
 export PATH="/usr/local/bin:$PATH"
+
+# Set brew as main path only if installed
+which brew > /dev/null
+if [ $? -eq 0 ]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+fi
+
+
