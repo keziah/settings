@@ -1,0 +1,38 @@
+{
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "trace.server": "verbose",
+      "filetypes": ["go"]
+    },
+    "python": {
+      "command": "coc-pyright",
+      "filetypes": ["py"],
+      "rootPatterns": [".workspace_root/"]
+    },
+    "kotlin": {
+      "command": "kotlin-language-server",
+      "trace.server": "verbose",
+      "filetypes": ["kotlin"],
+      "rootPatterns": [".git/"]
+    },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  },
+  "coc.preferences.jumpCommand": "vsplit",
+  "workspace.rootPatterns": [".workspace_root/"],
+  "workspace.bottomUpFiletypes": ["python"],
+  "python.linting.pylintArgs": ["--rcfile", ".pylintrc"],
+  "python.linting.pylintEnabled": true,
+  "python.analysis.typeCheckingMode": "off",
+  "pyright.disableDiagnostics": true
+}

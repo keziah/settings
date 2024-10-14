@@ -1,10 +1,6 @@
 # set -o vi
 
-source ~/.bash_colors
-source ~/.git-prompt.sh
-source ~/.bash_vars
-source ~/.bash_work
-
+export EDITOR='nvim'
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 PS1="\[$Green\]\u:\[$Blue\]\[$Yellow\]\W\[\033[m\]\[$Purple\]\$(__git_ps1)\[$White\]\[$Color_Off\]\$ "
@@ -17,17 +13,17 @@ alias reset_to_origin="git reset --hard origin/master"
 alias untar="tar -xvkf"
 
 eval "$(scmpuff init -s)"
-export PATH="$HOME/.rbenv/shims:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="~/go/bin:$PATH"
+export PATH="$PATH:/opt/nvim-linux64/bin"
 export CLEAN=true
 export LOCAL=true
 
 export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(history 1)" >> ~/.logs/bash-history-$(date "+%Y-%m-%d").log; fi'
 
 searchlogs () {
-  searchterm=$@
-  if [ -z $searchterm ]; then
+  searchterm=$*
+  if [[ -z $searchterm ]]; then
     echo "Look for previous bash commands run on this machine."
     echo "Ignores searchlogs commands."
     echo "Usage: [NUM_LINES=int] [CLEAN=true] searchlogs [searchterm]"
@@ -40,37 +36,26 @@ searchlogs () {
   NUM_LINES=${NUM_LINES:-'10'}
   RES=$( grep -hrv 'logsearch' ~/.logs | ag -i "$searchterm" | grep -v searchlogs | sort | tail -n $NUM_LINES )
   LAST_COMMAND=$( grep -hrv 'logsearch' ~/.logs | ag -i "$searchterm" | grep -v searchlogs | sort | tail -1 )
-  if [ $CLEAN == "false" ]; then
+  if [[ "$CLEAN" == "false" ]]; then
     echo "$RES"
   else
-    echo "$RES" | sed -u 's/^.*  [ 0-9]\{3,\}  [ 0-9]\{10,\}//'
-    echo "$LAST_COMMAND" | sed -u 's/^.*  [ 0-9]\{3,\}  [ 0-9]\{10,\}//' | pbcopy
+    echo "$RES" | sed -E 's/^.*[[:space:]]+[0-9]{1,}[[:space:]]+[0-9]{10} //'
+    echo "$LAST_COMMAND" | sed -E 's/^.*[[:space:]]+[0-9]{1,}[[:space:]]+[0-9]{10} //' | pbcopy
   fi
 }
 
+# Package/Language managers
 export ENV=staging
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
 
-eval "$(pyenv init --path)"
+# eval "$(pyenv init --path)"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-
-alias tsync="{ time afdev sync; } 2>> time_sync"
 
 . /opt/homebrew/etc/profile.d/z.sh
 
 export PATH="/usr/local/opt/binutils/bin:$PATH"
 eval "$(/opt/homebrew/bin/brew shellenv)"
-
-alias gs='scmpuff_status'
-# eval "$(pyenv virtualenv-init -)"
-
-# export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
-export LDFLAGS="-L$(brew --prefix openssl@1.1)/lib"
-# export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
-export CFLAGS="-I$(brew --prefix openssl@1.1)/include"
-# export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
-alias ctags='/opt/homebrew/bin/ctags'
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
