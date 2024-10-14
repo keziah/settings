@@ -1,0 +1,9 @@
+alias stash="git stash save"
+alias ls="ls -l"
+alias gcm="git commit -m"
+alias filter="stdbuf -i0 -o0 sed -E -u 's/^.*(INFO|WARNING) - //'"
+alias reset_to_origin="git reset --hard origin/master"
+alias untar="tar -xvkf"
+
+alias gs='scmpuff_status'
+alias ctags='/opt/homebrew/bin/ctags'
